@@ -53,15 +53,63 @@ namespace CarFinder.Controllers
             return Ok(returnValue);
         }
 
-        public IHttpActionResult GetCars(string model_year, string make, string model_name, string model_trim)
+        public IHttpActionResult GetCars(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
         {
             var _model_year = new SqlParameter("@model_year", model_year);
             var _make = new SqlParameter("@make", make);
             var _model_name = new SqlParameter("@model_name", model_name);
             var _model_trim = new SqlParameter("@model_trim", model_trim);
+            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
+            var _drive_type = new SqlParameter("@drive_type", drive_type);
+
 
             var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC GetCars @model_year, @make, @model_name, @model_trim", _model_year, _make, _model_name, _model_trim).ToList();
+                "EXEC GetCars @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
+
+            return Ok(returnValue);
+        }
+
+        public IHttpActionResult SortByHorsepower(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
+        {
+            var _model_year = new SqlParameter("@model_year", model_year);
+            var _make = new SqlParameter("@make", make);
+            var _model_name = new SqlParameter("@model_name", model_name);
+            var _model_trim = new SqlParameter("@model_trim", model_trim);
+            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
+            var _drive_type = new SqlParameter("@drive_type", drive_type);
+
+            var returnValue = db.Database.SqlQuery<Car>(
+                "EXEC SortByHorsepower @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
+
+            return Ok(returnValue);
+        }
+
+        public IHttpActionResult SortBySeats(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
+        {
+            var _model_year = new SqlParameter("@model_year", model_year);
+            var _make = new SqlParameter("@make", make);
+            var _model_name = new SqlParameter("@model_name", model_name);
+            var _model_trim = new SqlParameter("@model_trim", model_trim);
+            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
+            var _drive_type = new SqlParameter("@drive_type", drive_type);
+
+            var returnValue = db.Database.SqlQuery<Car>(
+                "EXEC SortBySeats @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
+
+            return Ok(returnValue);
+        }
+
+        public IHttpActionResult SortByDoors(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
+        {
+            var _model_year = new SqlParameter("@model_year", model_year);
+            var _make = new SqlParameter("@make", make);
+            var _model_name = new SqlParameter("@model_name", model_name);
+            var _model_trim = new SqlParameter("@model_trim", model_trim);
+            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
+            var _drive_type = new SqlParameter("@drive_type", drive_type);
+
+            var returnValue = db.Database.SqlQuery<Car>(
+                "EXEC SortByDoors @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
 
             return Ok(returnValue);
         }
