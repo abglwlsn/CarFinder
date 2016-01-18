@@ -219,32 +219,34 @@ namespace CarFinder.Controllers
         /// <returns>Images for the selected car, supplied by Bing</returns>
         public async Task<IHttpActionResult> GetImages(int Id)
         {
-            var Image = "";
+            
             var Car = db.Cars.Find(Id);
+            try
+            {
+                var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
 
-            var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
+               image.Credentials = new NetworkCredential("accountKey", "pplLdOGSDWh5iaWBjOnyIIuSxvgSV9yzE4Zz701mWQA");
 
-            image.Credentials = new NetworkCredential("accountKey", "5u/0CzVmYrTKDOjlxPePfPkh/G8llMIfVJ7QC/oNEvQ");
-            var marketData = image.Composite(
-                "image",
-                Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null,
-                null
-                ).Execute();
+               //image.Credentials = new NetworkCredential("accountKey", "BOFSGcW4nmvszJ5AbeQhmba0pzWNYUw1Xdovy88fwbk");
 
-            Image = marketData.First().Image.First().MediaUrl;
-            return Ok(new { car = Car, image = Image });
+                var marketData = image.Image(
+                   Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + "not Ebay",
+                    null,
+                    null,
+                    null,
+                    null,
+                    null,
+                    null
+                    ).Execute();
+            
+            var _image = (marketData.First().MediaUrl);
+            
+            return Ok(_image);
+            }
+            catch (Exception e)
+            {
+                return InternalServerError(e);
+            }
         }
     }
 }

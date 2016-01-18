@@ -564,6 +564,20 @@
             <param name="drive_type">optional to select drive type</param>
             <returns>Returns all cars fitting user-selected parameters, sorted by number of doors.</returns>
         </member>
+        <member name="M:CarFinder.Controllers.CarController.GetRecalls(System.Int32)">
+            <summary>
+            Acquires recall information from the NHTSA website for the selected car
+            </summary>
+            <param name="Id">The Id for the selected car (returned by GetCars API)</param>
+            <returns>JSON file with all recall information for car</returns>
+        </member>
+        <member name="M:CarFinder.Controllers.CarController.GetImages(System.Int32)">
+            <summary>
+            Get images for car from Bing API
+            </summary>
+            <param name="Id">The Id for the selected car (returned from GetCars API)</param>
+            <returns>Images for the selected car, supplied by Bing</returns>
+        </member>
         <member name="M:Bing.BingSearchContainer.Composite(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Double},System.Nullable{System.Double},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             </summary>
