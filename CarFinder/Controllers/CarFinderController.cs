@@ -115,7 +115,7 @@ namespace CarFinder.Controllers
             //var _drive_type = new SqlParameter("@drive_type", drive_type??"");
 
 
-            var returnValue = db.Database.SqlQuery<string>(
+            var returnValue = db.Database.SqlQuery<Car>(
                 "EXEC GetCars @model_year, @make, @model_name, @model_trim", _model_year, _make, _model_name, _model_trim).ToList();
 
             return Ok(returnValue);

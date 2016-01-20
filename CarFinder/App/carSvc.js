@@ -4,7 +4,7 @@
 
     //Get Cars
     service.getCars = function (selected) {
-        return $http.post('/api/car/getCars', selected).then(function (response) {
+        return $http.post('/api/Car/GetCars', selected).then(function (response) {
             return response.data;
         })
     }

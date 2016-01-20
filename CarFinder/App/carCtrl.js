@@ -17,8 +17,8 @@
         }
         ref.cars = [];
 
-        ref.getCars = function (selected) {
-            carSvc.getCars(selected).then(function(){
+        ref.getCars = function () {
+            carSvc.getCars(ref.selected).then(function(data){
                 ref.cars = data;
             })
         }
