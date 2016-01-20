@@ -19,9 +19,21 @@ namespace CarFinder.Controllers
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
+        /// Provides an object to collect parameters of user selection on front end.
+        /// </summary>
+        public class Selected
+        {
+            public string year { get; set; }
+            public string make { get; set; }
+            public string model { get; set; }
+            public string trim { get; set; }
+        }
+
+        /// <summary>
         /// List of unique years in table Cars for use in the dropdown menu
         /// </summary>
         /// <returns>All unique years in the column model_year</returns>
+       [HttpPost]
         public IHttpActionResult GetUniqueYears()
         {
             var returnValue = db.Database.SqlQuery<string>(
@@ -34,12 +46,12 @@ namespace CarFinder.Controllers
         /// </summary>
         /// <param name="model_year">For defining contents of list for Cars:make</param>
         /// <returns>All unique makes for user-selected year (column make, column model_year)</returns>
-        public IHttpActionResult GetUniqueMakesByYear(string model_year)
+        [HttpPost]
+        public IHttpActionResult GetUniqueMakesByYear(Selected selected)
         {
-            var returnValue = db.Database.SqlQuery<string>(
-            "EXEC GetUniqueMakesByYear @model_year",
-            new SqlParameter("@model_year", model_year)).ToList();
-            //with no parameters, take out @body_style through the id).
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+            var returnValue = db.Database.SqlQuery<string>("EXEC GetUniqueMakesByYear @model_year", _model_year).ToList();
+            //with no parameters, take out @body_style through the id).;
             // mutiple parameters: create parameter ahead of the EXEC functions, then simply list @id, @body_style, var, var
             return Ok(returnValue);
         }
@@ -50,10 +62,11 @@ namespace CarFinder.Controllers
         /// <param name="model_year">for defining list of Cars:make</param>
         /// <param name="make">for further defining list of Cars:model_name</param>
         /// <returns>All unique models for selected year and make</returns>
-        public IHttpActionResult GetUniqueModelsByYearMake(string model_year, string make)
+        [HttpPost]
+        public IHttpActionResult GetUniqueModelsByYearMake(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", model_year);
-            var _make = new SqlParameter("@make", make);
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+            var _make = new SqlParameter("@make", selected.make ?? "");
 
             var returnValue = db.Database.SqlQuery<string>(
                 "EXEC GetUniqueModelsByYearMake @model_year, @make", _model_year, _make).ToList();
@@ -68,13 +81,14 @@ namespace CarFinder.Controllers
         /// <param name="make">for further defining list of Cars:make, model</param>
         /// <param name="model_name">for furher defining list of Cars:make, model, trim</param>
         /// <returns>all unique trims for user-selected year, make, model</returns>
-        public IHttpActionResult GetUniqueTrimsByYearMakeModel(string model_year, string make, string model_name)
+        [HttpPost]
+        public IHttpActionResult GetUniqueTrimsByYearMakeModel(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", model_year);
-            var _make = new SqlParameter("@make", make);
-            var _model_name = new SqlParameter("@model_name", model_name);
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+            var _make = new SqlParameter("@make", selected.make ?? "");
+            var _model_name = new SqlParameter("@model_name", selected.model ?? "");
 
-            var returnValue = db.Database.SqlQuery<Car>(
+            var returnValue = db.Database.SqlQuery<string>(
                 "EXEC GetUniqueTrimsByYearMakeModel @model_year, @make, @model_name", _model_year, _make, _model_name).ToList();
 
             return Ok(returnValue);
@@ -90,18 +104,19 @@ namespace CarFinder.Controllers
         /// <param name="transmission_type">optional to select transmission type</param>
         /// <param name="drive_type">optional to select drive type</param>
         /// <returns>Returns all cars fitting the user-selected parameters</returns>
-        public IHttpActionResult GetCars(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
+        [HttpPost]
+        public IHttpActionResult GetCars(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", model_year??"");
-            var _make = new SqlParameter("@make", make??"");
-            var _model_name = new SqlParameter("@model_name", model_name??"");
-            var _model_trim = new SqlParameter("@model_trim", model_trim??"");
-            var _transmission_type = new SqlParameter("@transmission_type", transmission_type??"");
-            var _drive_type = new SqlParameter("@drive_type", drive_type??"");
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+            var _make = new SqlParameter("@make", selected.make ?? "");
+            var _model_name = new SqlParameter("@model_name", selected.model ?? "");
+            var _model_trim = new SqlParameter("@model_trim", selected.trim ?? "");
+            //var _transmission_type = new SqlParameter("@transmission_type", transmission_type??"");
+            //var _drive_type = new SqlParameter("@drive_type", drive_type??"");
 
 
-            var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC GetCars @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
+            var returnValue = db.Database.SqlQuery<string>(
+                "EXEC GetCars @model_year, @make, @model_name, @model_trim", _model_year, _make, _model_name, _model_trim).ToList();
 
             return Ok(returnValue);
         }
@@ -225,9 +240,8 @@ namespace CarFinder.Controllers
             {
                 var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
 
-               image.Credentials = new NetworkCredential("accountKey", "pplLdOGSDWh5iaWBjOnyIIuSxvgSV9yzE4Zz701mWQA");
-
-               //image.Credentials = new NetworkCredential("accountKey", "BOFSGcW4nmvszJ5AbeQhmba0pzWNYUw1Xdovy88fwbk");
+               image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
+               // image.Credentials = new NetworkCredential("accountKey", "pplLdOGSDWh5iaWBjOnyIIuSxvgSV9yzE4Zz701mWQA");
 
                 var marketData = image.Image(
                    Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + "not Ebay",

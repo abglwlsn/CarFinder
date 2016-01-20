@@ -486,20 +486,25 @@
             All stored procedures for CarFinder app: creating menu dropdowns and sorting of results by user-entered parameters
             </summary>
         </member>
+        <member name="T:CarFinder.Controllers.CarController.Selected">
+            <summary>
+            Provides an object to collect parameters of user selection on front end.
+            </summary>
+        </member>
         <member name="M:CarFinder.Controllers.CarController.GetUniqueYears">
             <summary>
             List of unique years in table Cars for use in the dropdown menu
             </summary>
             <returns>All unique years in the column model_year</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueMakesByYear(System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueMakesByYear(CarFinder.Controllers.CarController.Selected)">
             <summary>
             List of unique makes, sorted by year, from table Cars for use in dropdown menu
             </summary>
             <param name="model_year">For defining contents of list for Cars:make</param>
             <returns>All unique makes for user-selected year (column make, column model_year)</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueModelsByYearMake(System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueModelsByYearMake(CarFinder.Controllers.CarController.Selected)">
             <summary>
             All unique models, sorted by year and make, for use in the dropdown menu
             </summary>
@@ -507,7 +512,7 @@
             <param name="make">for further defining list of Cars:model_name</param>
             <returns>All unique models for selected year and make</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueTrimsByYearMakeModel(System.String,System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueTrimsByYearMakeModel(CarFinder.Controllers.CarController.Selected)">
             <summary>
             All unique trims from table Cars, sorted by year, make, and model, for use in the dropdown menu
             </summary>
@@ -516,7 +521,7 @@
             <param name="model_name">for furher defining list of Cars:make, model, trim</param>
             <returns>all unique trims for user-selected year, make, model</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetCars(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetCars(CarFinder.Controllers.CarController.Selected)">
             <summary>
             Displays all cars following the given user-selected parameters
             </summary>
