@@ -483,38 +483,43 @@
         </member>
         <member name="T:CarFinder.Controllers.CarController">
             <summary>
-            All stored procedures for CarFinder app: creating menu dropdowns and sorting of results by user-entered parameters
+            All stored procedures for the CarFinder app. Provides content for drop-down menus and information to fulfill user-influenced queries.
             </summary>
         </member>
         <member name="T:CarFinder.Controllers.CarController.Selected">
             <summary>
-            Provides an object to collect parameters of user selection on front end.
+            Provides an object to collect parameters of user selection on front end. For use in populating drop-down menus and the results grid.
             </summary>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueYears">
+        <member name="T:CarFinder.Controllers.CarController.IdParam">
             <summary>
-            List of unique years in table Cars for use in the dropdown menu
+            Provides an object to capture the Car Id for use in the GetCarDetails function, returning recall information and an image.
+            </summary>
+        </member>
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueYearsByMakeModel(CarFinder.Controllers.CarController.Selected)">
+            <summary>
+            List of unique years in table Cars for use in the dropdown menu, sorted by make
             </summary>
             <returns>All unique years in the column model_year</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueMakesByYear(CarFinder.Controllers.CarController.Selected)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueMakes">
             <summary>
-            List of unique makes, sorted by year, from table Cars for use in dropdown menu
+            List of unique makes from table Cars for use in dropdown menu
             </summary>
             <param name="model_year">For defining contents of list for Cars:make</param>
             <returns>All unique makes for user-selected year (column make, column model_year)</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueModelsByYearMake(CarFinder.Controllers.CarController.Selected)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueModelsByMake(CarFinder.Controllers.CarController.Selected)">
             <summary>
-            All unique models, sorted by year and make, for use in the dropdown menu
+            All unique models from table Cars for use in the dropdown menu, sorted by year and make
             </summary>
             <param name="model_year">for defining list of Cars:make</param>
             <param name="make">for further defining list of Cars:model_name</param>
             <returns>All unique models for selected year and make</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetUniqueTrimsByYearMakeModel(CarFinder.Controllers.CarController.Selected)">
+        <member name="M:CarFinder.Controllers.CarController.GetUniqueTrimsByMakeModelYear(CarFinder.Controllers.CarController.Selected)">
             <summary>
-            All unique trims from table Cars, sorted by year, make, and model, for use in the dropdown menu
+            All unique trims from table Cars for use in the dropdown menu, sorted by make, model, and year
             </summary>
             <param name="model_year">for further defining list of Cars:make</param>
             <param name="make">for further defining list of Cars:make, model</param>
@@ -523,65 +528,20 @@
         </member>
         <member name="M:CarFinder.Controllers.CarController.GetCars(CarFinder.Controllers.CarController.Selected)">
             <summary>
-            Displays all cars following the given user-selected parameters
+            Displays all cars from table Cars following the given user-selected parameters, including all columns provided in the database.
             </summary>
             <param name="model_year">for refining list of Cars:make</param>
             <param name="make">for refining list of Cars:make, model</param>
             <param name="model_name">for refining list of Cars:make, model, trim</param>
             <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-            <param name="transmission_type">optional to select transmission type</param>
-            <param name="drive_type">optional to select drive type</param>
             <returns>Returns all cars fitting the user-selected parameters</returns>
         </member>
-        <member name="M:CarFinder.Controllers.CarController.GetCarsSortByHorsepower(System.String,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:CarFinder.Controllers.CarController.GetCarDetails(CarFinder.Controllers.CarController.IdParam)">
             <summary>
-            Displays all cars following the given user-selected parameters, with results sorted by horsepower (column engine_power_ps)
+            Uses the Id from object Car as selected by the user. Accesses recall information from the National Highway and Traffic Safety Administration API. Acquires an image through the Bing search API.
             </summary>
-            <param name="model_year">for refining list of Cars:make</param>
-            <param name="make">for refining list of Cars:make, model</param>
-            <param name="model_name">for refining list of Cars:make, model, trim</param>
-            <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-            <param name="transmission_type">optional to select transmission type</param>
-            <param name="drive_type">optional to select drive type</param>
-            <returns>Returns all cars fitting the user-selected parameters, sorted by horsepower.</returns>
-        </member>
-        <member name="M:CarFinder.Controllers.CarController.GetCarsSortBySeats(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Displays all cars fitting user-selected parameters, sorted by number of seats.
-            </summary>
-            <param name="model_year">for refining list of Cars:make</param>
-            <param name="make">for refining list of Cars:make, model</param>
-            <param name="model_name">for refining list of Cars:make, model, trim</param>
-            <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-            <param name="transmission_type">optional to select transmission type</param>
-            <param name="drive_type">optional to select drive type</param>
-            <returns>Returns all cars fitting user-selected parameters, sorted by number of seats</returns>
-        </member>
-        <member name="M:CarFinder.Controllers.CarController.GetCarsSortByDoors(System.String,System.String,System.String,System.String,System.String,System.String)">
-            <summary>
-            Displays all cars fitting user-selected parameters, sorted by number of doors.
-            </summary>
-            <param name="model_year">for refining list of Cars:make</param>
-            <param name="make">for refining list of Cars:make, model</param>
-            <param name="model_name">for refining list of Cars:make, model, trim</param>
-            <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-            <param name="transmission_type">optional to select transmission type</param>
-            <param name="drive_type">optional to select drive type</param>
-            <returns>Returns all cars fitting user-selected parameters, sorted by number of doors.</returns>
-        </member>
-        <member name="M:CarFinder.Controllers.CarController.GetRecalls(System.Int32)">
-            <summary>
-            Acquires recall information from the NHTSA website for the selected car
-            </summary>
-            <param name="Id">The Id for the selected car (returned by GetCars API)</param>
-            <returns>JSON file with all recall information for car</returns>
-        </member>
-        <member name="M:CarFinder.Controllers.CarController.GetImages(System.Int32)">
-            <summary>
-            Get images for car from Bing API
-            </summary>
-            <param name="Id">The Id for the selected car (returned from GetCars API)</param>
-            <returns>Images for the selected car, supplied by Bing</returns>
+            <param name="Id"></param>
+            <returns></returns>
         </member>
         <member name="M:Bing.BingSearchContainer.Composite(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Double},System.Nullable{System.Double},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>

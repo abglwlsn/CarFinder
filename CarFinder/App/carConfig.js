@@ -1,1 +1,1 @@
-﻿angular.module("carDetails",[]);
+﻿angular.module("carDetails",["trNgGrid", "ui.bootstrap"]);

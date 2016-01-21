@@ -1,5 +1,6 @@
 ﻿using Bing;
 using CarFinder.Models;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Data.SqlClient;
@@ -12,202 +13,136 @@ using System.Web.Http;
 namespace CarFinder.Controllers
 {
     /// <summary>
-    /// All stored procedures for CarFinder app: creating menu dropdowns and sorting of results by user-entered parameters
+    /// All stored procedures for the CarFinder app. Provides content for drop-down menus and information to fulfill user-influenced queries.
     /// </summary>
     public class CarController : ApiController
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         /// <summary>
-        /// Provides an object to collect parameters of user selection on front end.
+        /// Provides an object to collect parameters of user selection on front end. For use in populating drop-down menus and the results grid.
         /// </summary>
         public class Selected
         {
-            public string year { get; set; }
             public string make { get; set; }
             public string model { get; set; }
+            public string year { get; set; }
             public string trim { get; set; }
         }
 
         /// <summary>
-        /// List of unique years in table Cars for use in the dropdown menu
+        /// Provides an object to capture the Car Id for use in the GetCarDetails function, returning recall information and an image.
+        /// </summary>
+        public class IdParam
+        {
+            public int id { get; set; }
+        }
+
+        /// <summary>
+        /// List of unique years in table Cars for use in the dropdown menu, sorted by make
         /// </summary>
         /// <returns>All unique years in the column model_year</returns>
        [HttpPost]
-        public IHttpActionResult GetUniqueYears()
+        public IHttpActionResult GetUniqueYearsByMakeModel(Selected selected)
         {
+            var _make = new SqlParameter("@make", selected.make ?? "");
+            var _model_name = new SqlParameter("@model_name", selected.model ?? "");
+
             var returnValue = db.Database.SqlQuery<string>(
-                "EXEC GetUniqueYears").ToList();
+                "EXEC GetUniqueYearsByMakeModel @make, @model_name", _make, _model_name).ToList();
             return Ok(returnValue);
         }
 
         /// <summary>
-        /// List of unique makes, sorted by year, from table Cars for use in dropdown menu
+        /// List of unique makes from table Cars for use in dropdown menu
         /// </summary>
         /// <param name="model_year">For defining contents of list for Cars:make</param>
         /// <returns>All unique makes for user-selected year (column make, column model_year)</returns>
         [HttpPost]
-        public IHttpActionResult GetUniqueMakesByYear(Selected selected)
+        public IHttpActionResult GetUniqueMakes()
         {
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
-            var returnValue = db.Database.SqlQuery<string>("EXEC GetUniqueMakesByYear @model_year", _model_year).ToList();
+            var returnValue = db.Database.SqlQuery<string>("EXEC GetUniqueMakes").ToList();
             //with no parameters, take out @body_style through the id).;
             // mutiple parameters: create parameter ahead of the EXEC functions, then simply list @id, @body_style, var, var
             return Ok(returnValue);
         }
 
         /// <summary>
-        /// All unique models, sorted by year and make, for use in the dropdown menu
+        /// All unique models from table Cars for use in the dropdown menu, sorted by year and make
         /// </summary>
         /// <param name="model_year">for defining list of Cars:make</param>
         /// <param name="make">for further defining list of Cars:model_name</param>
         /// <returns>All unique models for selected year and make</returns>
         [HttpPost]
-        public IHttpActionResult GetUniqueModelsByYearMake(Selected selected)
+        public IHttpActionResult GetUniqueModelsByMake(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
 
             var returnValue = db.Database.SqlQuery<string>(
-                "EXEC GetUniqueModelsByYearMake @model_year, @make", _model_year, _make).ToList();
+                "EXEC GetUniqueModelsByMake @make", _make).ToList();
 
             return Ok(returnValue);
         }
 
         /// <summary>
-        /// All unique trims from table Cars, sorted by year, make, and model, for use in the dropdown menu
+        /// All unique trims from table Cars for use in the dropdown menu, sorted by make, model, and year
         /// </summary>
         /// <param name="model_year">for further defining list of Cars:make</param>
         /// <param name="make">for further defining list of Cars:make, model</param>
         /// <param name="model_name">for furher defining list of Cars:make, model, trim</param>
         /// <returns>all unique trims for user-selected year, make, model</returns>
         [HttpPost]
-        public IHttpActionResult GetUniqueTrimsByYearMakeModel(Selected selected)
+        public IHttpActionResult GetUniqueTrimsByMakeModelYear(Selected selected)
         {
             var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
             var _model_name = new SqlParameter("@model_name", selected.model ?? "");
 
             var returnValue = db.Database.SqlQuery<string>(
-                "EXEC GetUniqueTrimsByYearMakeModel @model_year, @make, @model_name", _model_year, _make, _model_name).ToList();
+                "EXEC GetUniqueTrimsByMakeModelYear @make, @model_name,  @model_year", _make, _model_name, _model_year).ToList();
 
             return Ok(returnValue);
         }
 
         /// <summary>
-        /// Displays all cars following the given user-selected parameters
+        /// Displays all cars from table Cars following the given user-selected parameters, including all columns provided in the database.
         /// </summary>
         /// <param name="model_year">for refining list of Cars:make</param>
         /// <param name="make">for refining list of Cars:make, model</param>
         /// <param name="model_name">for refining list of Cars:make, model, trim</param>
         /// <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-        /// <param name="transmission_type">optional to select transmission type</param>
-        /// <param name="drive_type">optional to select drive type</param>
         /// <returns>Returns all cars fitting the user-selected parameters</returns>
         [HttpPost]
         public IHttpActionResult GetCars(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
             var _model_name = new SqlParameter("@model_name", selected.model ?? "");
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _model_trim = new SqlParameter("@model_trim", selected.trim ?? "");
-            //var _transmission_type = new SqlParameter("@transmission_type", transmission_type??"");
-            //var _drive_type = new SqlParameter("@drive_type", drive_type??"");
-
 
             var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC GetCars @model_year, @make, @model_name, @model_trim", _model_year, _make, _model_name, _model_trim).ToList();
+                "EXEC GetCars @make, @model_name, @model_year, @model_trim", _make, _model_name, _model_year, _model_trim).ToList();
 
             return Ok(returnValue);
         }
 
 
         /// <summary>
-        /// Displays all cars following the given user-selected parameters, with results sorted by horsepower (column engine_power_ps)
+        /// Uses the Id from object Car as selected by the user. Accesses recall information from the National Highway and Traffic Safety Administration API. Acquires an image through the Bing search API.
         /// </summary>
-        /// <param name="model_year">for refining list of Cars:make</param>
-        /// <param name="make">for refining list of Cars:make, model</param>
-        /// <param name="model_name">for refining list of Cars:make, model, trim</param>
-        /// <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-        /// <param name="transmission_type">optional to select transmission type</param>
-        /// <param name="drive_type">optional to select drive type</param>
-        /// <returns>Returns all cars fitting the user-selected parameters, sorted by horsepower.</returns>
-        public IHttpActionResult GetCarsSortByHorsepower(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
+        /// <param name="Id"></param>
+        /// <returns></returns>
+        [HttpPost]
+        public async Task<IHttpActionResult> GetCarDetails(IdParam Id)
         {
-            var _model_year = new SqlParameter("@model_year", model_year);
-            var _make = new SqlParameter("@make", make);
-            var _model_name = new SqlParameter("@model_name", model_name);
-            var _model_trim = new SqlParameter("@model_trim", model_trim);
-            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
-            var _drive_type = new SqlParameter("@drive_type", drive_type);
+            // ---- get Recall Information -----
 
-            var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC SortByHorsepower @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
-
-            return Ok(returnValue);
-        }
-
-        /// <summary>
-        /// Displays all cars fitting user-selected parameters, sorted by number of seats.
-        /// </summary>
-        /// <param name="model_year">for refining list of Cars:make</param>
-        /// <param name="make">for refining list of Cars:make, model</param>
-        /// <param name="model_name">for refining list of Cars:make, model, trim</param>
-        /// <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-        /// <param name="transmission_type">optional to select transmission type</param>
-        /// <param name="drive_type">optional to select drive type</param>
-        /// <returns>Returns all cars fitting user-selected parameters, sorted by number of seats</returns>
-        public IHttpActionResult GetCarsSortBySeats(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
-        {
-            var _model_year = new SqlParameter("@model_year", model_year);
-            var _make = new SqlParameter("@make", make);
-            var _model_name = new SqlParameter("@model_name", model_name);
-            var _model_trim = new SqlParameter("@model_trim", model_trim);
-            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
-            var _drive_type = new SqlParameter("@drive_type", drive_type);
-
-            var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC SortBySeats @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
-
-            return Ok(returnValue);
-        }
-
-        /// <summary>
-        /// Displays all cars fitting user-selected parameters, sorted by number of doors.
-        /// </summary>
-        /// <param name="model_year">for refining list of Cars:make</param>
-        /// <param name="make">for refining list of Cars:make, model</param>
-        /// <param name="model_name">for refining list of Cars:make, model, trim</param>
-        /// <param name="model_trim">for refining list of Cars:make, model, trim, etc</param>
-        /// <param name="transmission_type">optional to select transmission type</param>
-        /// <param name="drive_type">optional to select drive type</param>
-        /// <returns>Returns all cars fitting user-selected parameters, sorted by number of doors.</returns>
-        public IHttpActionResult GetCarsSortByDoors(string model_year, string make, string model_name, string model_trim, string transmission_type, string drive_type)
-        {
-            var _model_year = new SqlParameter("@model_year", model_year);
-            var _make = new SqlParameter("@make", make);
-            var _model_name = new SqlParameter("@model_name", model_name);
-            var _model_trim = new SqlParameter("@model_trim", model_trim);
-            var _transmission_type = new SqlParameter("@tranmission_type", transmission_type);
-            var _drive_type = new SqlParameter("@drive_type", drive_type);
-
-            var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC SortByDoors @model_year, @make, @model_name, @model_trim, @transmission_type, @drive_type", _model_year, _make, _model_name, _model_trim, _transmission_type, _drive_type).ToList();
-
-            return Ok(returnValue);
-        }
-
-        /// <summary>
-        /// Acquires recall information from the NHTSA website for the selected car
-        /// </summary>
-        /// <param name="Id">The Id for the selected car (returned by GetCars API)</param>
-        /// <returns>JSON file with all recall information for car</returns>
-        public async Task<IHttpActionResult> GetRecalls(int Id)
-        {
             HttpResponseMessage response;
             string content = "";
-            var Car = db.Cars.Find(Id);
-            var Recalls = "";
+            var Car = db.Cars.Find(Id.id);
+            dynamic Recalls = "";
+            var Image = "";
+
             using (var client = new HttpClient())
             {
                 client.BaseAddress = new Uri("http://www.nhtsa.gov/");
@@ -223,44 +158,35 @@ namespace CarFinder.Controllers
                     return InternalServerError(e);
                 }
             }
-            Recalls = content;
+            Recalls = JsonConvert.DeserializeObject(content);
+
+
+            // ---------  Get Image --------
+           
+            //    var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
+
+            //    image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
+            //var marketData = image.Composite(
+            //     "image",
+            //     Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null,
+            //     null
+            //     ).Execute();
+
+           // Image = marketData?.First()?.Image?.First()?.MediaUrl;
+
             return Ok(new { car = Car, recalls = Recalls });
-        }
-
-        /// <summary>
-        /// Get images for car from Bing API
-        /// </summary>
-        /// <param name="Id">The Id for the selected car (returned from GetCars API)</param>
-        /// <returns>Images for the selected car, supplied by Bing</returns>
-        public async Task<IHttpActionResult> GetImages(int Id)
-        {
-            
-            var Car = db.Cars.Find(Id);
-            try
-            {
-                var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
-
-               image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
-               // image.Credentials = new NetworkCredential("accountKey", "pplLdOGSDWh5iaWBjOnyIIuSxvgSV9yzE4Zz701mWQA");
-
-                var marketData = image.Image(
-                   Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + "not Ebay",
-                    null,
-                    null,
-                    null,
-                    null,
-                    null,
-                    null
-                    ).Execute();
-            
-            var _image = (marketData.First().MediaUrl);
-            
-            return Ok(_image);
-            }
-            catch (Exception e)
-            {
-                return InternalServerError(e);
-            }
         }
     }
 }

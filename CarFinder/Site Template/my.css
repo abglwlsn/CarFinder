@@ -1,4 +1,138 @@
-﻿.cursive {
+﻿main {
+    width:80%;
+    padding: 25px 0 0 0;
+    margin:auto;
+    background-color:white;
+}
+
+header {
+    border-bottom:3px solid #fed136;
+}
+
+@media (min-width: 1200px) {
+    .container {
+        width: 900px;
+    }
+}
+
+/* ------- TEXT ---------- */
+
+.cursive {
     font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
-    color:#16a085;
+    text-transform:none;
+}
+
+#technologies span {
+     color:#fed136;
+     text-shadow:-1px 1px #222;
+}
+
+/* ------- TECHNOLOGIES ------- */
+
+#technologies {
+    padding-top:0;
+}
+
+/* ------- CARFINDER -------- */
+
+#testDrive {
+    position:relative;
+    background-color:#4d4d4d;
+    padding-top:25px;
+}
+
+#testDrive h2 {
+    color:white;
+
+}
+
+#testDrive h2 span {
+    color:#fed136;
+    font-family: "Kaushan Script","Helvetica Neue",Helvetica,Arial,cursive;
+    text-transform:none;
+    font-weight:500;
+    font-size:60px;
+}
+
+/* --------- SELECTOR BANNER --------*/
+
+.banner {
+    box-sizing:border-box;
+    padding:15px;
+    margin:15px;
+    background-color:#222;
+    width:130%;
+    margin:auto;
+    border-radius:10px;
+    position:absolute;
+    left:-15%;
+}
+
+select {
+    width:15%;
+    min-width:125px;
+    height:25px;
+    border: 2px solid #fed136;
+    border-radius:5px;
+    background-color:#fed136;
+    color:#222;
+    padding:0 5px;
+    margin: 0 5px;
+
+}
+
+/* -------  TABLE -------- */
+
+.table {
+    margin-top: 100px;
+    background-color:#fff;
+}
+
+table button {
+    background-color:#fed136;
+    color:#fff;
+    padding:3px 6px;
+    font-size:14px
+}
+
+/* -------- ICONS ------- */
+
+li.social-buttons{
+    margin-bottom:0}
+
+li.social-buttons a{
+    display:block;
+    background-color:#222;
+    height:40px;
+    width:40px;
+    border-radius:100%;
+    font-size:20px;
+    line-height:40px;
+    color:#fff;
+    outline:0;
+    -webkit-transition:all .3s;
+    -moz-transition:all .3s;
+    transition:all .3s}
+
+li.social-buttons a:hover,
+li.social-buttons a:focus,
+li.social-buttons a:active{
+    background-color:#fed136
+}
+
+/* ------- MODAL ------- */
+
+.modal-body {
+
+}
+
+dd {
+    font-weight:200;
+    font-size:1.2em;
+}
+
+.image-result {
+    width:100%;
+    border:1px solid black;
+    border-radius:5px;
 }

@@ -1,17 +1,19 @@
 ﻿(function () {
-    var car = angular.module("carDetails");
-    car.controller("carCtrl", ['carSvc', function (carSvc) {
+    var app = angular.module("carDetails");
+
+    // ----------------------------------------------- CAR INFORMATION CONTROLLER --------------------------------------------------------
+
+    app.controller("carCtrl", ['carSvc', "$uibModal", function (carSvc, $uibModal) {
         var ref = this;
         ref.years = [];
         ref.makes = [];
         ref.models = [];
+        ref.years = [];
         ref.trims = [];
-        //ref.transmission = [];
-        //ref.drive = [];
         ref.selected = {
-            year: '',
             make: '',
             model: '',
+            year: '',
             trim: '',
           
         }
@@ -26,34 +28,34 @@
 
         // ------- Populate dropdowns with data from carSvc ----
 
-        ref.getYears = function () {
-            carSvc.getYears().then(function (data) {
-                ref.years = data;
-
-            })
-        }
 
         ref.getMakes = function () {
-            alert('inside getMakes');
-            carSvc.getMakes(ref.selected).then(function (data) {
-                //ref.selected.year as a parameter results in a Makes list that is dependent on a year selection (all makes for x year)
+            carSvc.getMakes().then(function (data) {
                 ref.makes = data;
-                ref.models = [];
-                ref.trims = [];
-                ref. make = '';
-                ref.model = '';
-                ref.trim = '';
-                ref.getCars();
             })
         }
 
         ref.getModels = function () {
             carSvc.getModels(ref.selected).then(function (data) {
+                //ref.selected as a parameter results in a Models list that is dependent on a make selection (all models for x make)
                 ref.models = data;
+                ref.years = [];
                 ref.trims = [];
                 ref.model = '';
+                ref.year = '';
                 ref.trim = '';
                 ref.getCars();
+            })
+        }
+
+        ref.getYears = function () {
+            carSvc.getYears(ref.selected).then(function (data) {
+                ref.years = data;
+                ref.trims = [];
+                ref.year = '';
+                ref.trim = '';
+                ref.getCars();
+
             })
         }
 
@@ -64,20 +66,40 @@
             })
         }
 
-        //ref.getTransmission = function () {
-        //    carSvc.getTransmission(ref.selected.transmission).then(function (data) {
-        //        ref.transmission = data;
-        //    })
-        //}
+        // ---------- Open Modal ---------
 
-        //ref.getDrive = function () {
-        //    carSvc.getDrive(ref.selected.drive).then(function (data) {
-        //        ref.drive = data;
-        //    })
-        //}
+        ref.open = function (id) {
+            console.log("Id in open " + id)
+            var modalInstance = $uibModal.open({
+                animation: true,
+                templateUrl: 'carModal.html',
+                controller: 'carModalCtrl as cm',
+                resolve: {
+                    cc: function () {
+                        return carSvc.getCarDetails(id);
+                    }
+                },
+                size: 'lg',
+            });
+        };
 
+        ref.getMakes();
+    }]);
 
+    // ---------------------------------------- CAR MODAL CONTROLLER ------------------------------------------------------------------------
 
-        ref.getYears();
+    app.controller('carModalCtrl', ['$uibModalInstance', function ($uibModalInstance, cc) {
+
+        var ref = this;
+        ref.n = 0;
+        ref.car = cc;
+        console.log("The car is : "+ref.car.car);
+        ref.ok = function () {
+            $uibModalInstance.close();
+        };
+
+        ref.cancel = function () {
+            $uibModalInstance.dismiss();
+        };
     }]);
 })();

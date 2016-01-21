@@ -1,5 +1,5 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="carDetails">
 
 <head>
 
@@ -13,17 +13,19 @@
 
     <!-- Bootstrap Core CSS -->
     <link href="Scripts/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/trNgGrid.min.css" rel="stylesheet" />
 
     <!-- Custom CSS -->
     <link href="Site Template/agency.css" rel="stylesheet" />
     <link href="Site Template/my.css" rel="stylesheet" />
 
     <!-- Custom Fonts -->
-    <link href="Site Template/font-awesome/font-awesome.css" rel="stylesheet" />
+
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet" type="text/css">
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
+    <link href="Site Template/font-awesome/font-awesome.min.css" rel="stylesheet" />
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -34,7 +36,7 @@
 
 </head>
 
-<body id="page-top" class="index">
+<body id="page-top" class="index" ng-controller="carCtrl as car">
 
     <!-- Navigation -->
     <nav class="navbar navbar-default navbar-fixed-top">
@@ -65,8 +67,8 @@
                     <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
-                    <li>
-                        <a href="#team">View on GitHub</a>
+                    <li class="social-buttons">
+                        <a href="http://www.github.com/abigailwest"><i class="fa fa-github"></i></a>
                     </li>
                     <!--<li>
                         <a class="page-scroll" href="#contact">Contact</a>
@@ -84,153 +86,176 @@
             <div class="intro-text">
                 <div class="intro-lead-in">Welcome To</div>
                 <div class="intro-heading">CarFinder</div>
-                <a href="#services" class="page-scroll btn btn-xl">find your dream car</a>
+                <a href="#testDrive" class="page-scroll btn btn-xl">find your dream car</a>
             </div>
         </div>
     </header>
 
     <!--About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">About this App</h2>
-                    <h3 class="section-subheading text-muted">With just a few simple clicks, access an extensive database of vehicles through a custom-built API to find just the one you want. Full details, recall information, and images are yours to browse by linking in to the NHTSA recall and Bing search APIs.</h3>
+    <main>
+        <section id="About">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">About this App</h2>
+                        <h3 class="section-subheading text-muted">With just a few simple clicks, access an extensive database of vehicles through a custom-built API to find just the one you want. Recall information is provided by accessing the API provided by the National Highway and Traffic Safety Administration. Images are sourced through the Bing search API.</h3>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Technologies Section -->
-    <section id="technologies">
-        <div class="container">
-            <div class="row text-center">
-                <div class="col-lg-12 text-center">
-                    <h2 class="cursive">Brought to you by:</h2>
-                    <h3 class="section-subheading text-muted">In addition to the foundational HTML, CSS, Bootstrap, and Javascript, the following technologies were used to create this Web API.</h3>
-                </div>
+        <!-- Technologies Section -->
+        <section id="technologies">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="cursive">Brought to you by:</h2>
+                        <h3 class="section-subheading text-muted">This web page was built using <span>HTML</span>, <span>CSS</span>, <span>Bootstrap</span>, and <span>Javascript</span>.<br /><br />In addition, the following technologies were used to create this API:</h3>
+                    </div>
                 </div>
                 <div class="row">
-                    <div class="col-sm-4">
-                        <div class="team-member">
+                    <div class="col-sm-3">
+                        <div class="technologies">
                             <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
                             <h4>AngularJS</h4>
-                            <!--<p class="text-muted"></p>-->
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="team-member">
+                    <div class="col-sm-3">
+                        <div class="technologies">
                             <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
                             <h4>ASP.NET MVC</h4>
-                            <!--<p class="text-muted">ASP.NET MVC</p>-->
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="team-member">
+                    <div class="col-sm-3">
+                        <div class="technologies">
                             <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
                             <h4>C#</h4>
-                            <!--<p class="text-muted">Lead Developer</p>
-                <ul class="list-inline social-buttons">
-                    <li>
-                        <a href="#"><i class="fa fa-twitter"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-facebook"></i></a>
-                    </li>
-                    <li>
-                        <a href="#"><i class="fa fa-linkedin"></i></a>
-                    </li>
-                </ul>-->
                         </div>
                     </div>
-            </div>
-        </div>
-    </section>
-
-  
-    <!-- About Section -->
-    <section id="about">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12 text-center">
-                    <h2 class="section-heading">About</h2>
-                    <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
+                    <div class="col-sm-3">
+                        <div class="technologies">
+                            <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+                            <h4>SQL Server</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <ul class="timeline">
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="img/about/1.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>2009-2011</h4>
-                                    <h4 class="subheading">Our Humble Beginnings</h4>
+        </section>
+
+
+        <!-- CarFinder Section -->
+        <section id="testDrive">
+            <div class="container">
+                <div class="row text-center">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">Car<span>Finder</span></h2>
+                        <div class="banner">
+                            <!-- the ng-change="function" in this case will populate the Models dropdown ONLY when the Make is chosen -->
+                            <select class="select-dropdown" ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">{{mak}}</select>
+                            <select class="select-dropdown" ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getYears()">{{mod}}</select>
+                            <select class="select-dropdown" ng-options="y for y in car.years" ng-model="car.selected.year" ng-change="car.getTrims()">{{y}}</select>
+                            <select class="select-dropdown" ng-options="t for t in car.trims" ng-model="car.selected.trim">{{t}}</select>
+                        </div>
+                        <div class="table">
+                            <table id="carDisplay" tr-ng-grid="" items="car.cars" page-items="25">
+                                <thead>
+                                    <tr>
+                                        <th field-name="model_name" display_name="Model"></th>
+                                        <th field-name="make" display_name="Make"></th>
+                                        <th field-name="model_trim" display_name="Trim"></th>
+                                        <th field-name="model_year" display_name="Year"></th>
+                                        <th field-name="transmission_type" display_name="Transmission"></th>
+                                        <th field-name="drive_type" display_name="Drive Type"></th>                                  
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><button type="submit" class="btn" ng-click="car.open(gridItem.id)">Details</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- Modal HTML -->
+                            <script type="text/ng-template" id="carModal.html">
+                                <div class="modal-header">
+                                    <h3 class="modal-title">
+                                        <button class="pull-right btn btn-default" ng-click="cm.cancel()">X</button>
+                                    </h3>
                                 </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
+
+                                <!--uib-tabset>
+                                <uib-tab heading="Static title">Static content</uib-tab>
+                                <uib-tab ng-repeat="tab in tabs" heading="{{tab.title}}" active="tab.active" disable="tab.disabled">
+                                    {{tab.content}}
+                                </uib-tab>
+                                <uib-tab select="alertMe()">
+                                    <uib-tab-heading>
+                                        <i class="glyphicon glyphicon-bell"></i> Alert!
+                                    </uib-tab-heading>
+                                    I've got an HTML heading, and a select callback. Pretty cool!
+                                </uib-tab>
+                                </uib-tabset>-->
+                                <div class="modal-body">
+                                    <h2> {{cm.car.car.model_year}} {{cm.car.car.make}} {{cm.car.car.model_name}}</h2>
+                                    <uib-tabset>
+                                        <uib-tab heading="Car Details">
+                                            <div class="row">
+                                                <div class="col-sm-5">
+                                                    <h4>Car Details</h4>
+                                                    <dl>
+                                                        <dt>Transmission Type</dt>
+                                                        <dd>{{cm.car.car.transmission_type}}</dd>
+                                                        <dt>Drive Type</dt>
+                                                        <dd>{{cm.car.car.drive_type}}</dd>
+                                                        <dt>Engine Type</dt>
+                                                        <dd>{{cm.car.car.engine_type}}</dd>
+                                                        <dt>Cylinders</dt>
+                                                        <dd>{{cm.car.car.engine_num_cyl}}</dd>
+                                                        <dt>Horsepower</dt>
+                                                        <dd>{{cm.car.car.engine_power_ps}}</dd>
+                                                        <dt>Number of Seats</dt>
+                                                        <dd>{{cm.car.car.seats}}</dd>
+                                                        <dt>Number of Doors</dt>
+                                                        <dd>{{cm.car.car.doors}}</dd>
+                                                    </dl>
+                                                </div>
+                                                <div class="col-sm-7">
+                                                    <div class="image-result">
+                                                        {{cm.car.car.image}}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </uib-tab>
+                                        <uib-tab heading="Recalls">
+                                            <div class="recall" ng-repeat="recall in recalls">
+                                                <div class="recallReturn">
+                                                    <h2>Recall Number: {{cm.car.car.recalls.results.each.actionNumber}}</h2>
+                                                    <dl>
+                                                        <dt>Summary</dt>
+                                                        <dd>{{cm.car.car.recalls.results.each.summary}}</dd>
+                                                        <dt>Consequence</dt>
+                                                        <dd>{{cm.car.car.recalls.results.each.conequence}}</dd>
+                                                        <dt>Remedy</dt>
+                                                        <dd>{{cm.car.car.recalls.results.each.remedy}}</dd>
+                                                    </dl>
+                                                </div>
+                                            </div>
+                                        </uib-tab>
+                                    </uib-tabset>
                                 </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="img/about/2.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>March 2011</h4>
-                                    <h4 class="subheading">An Agency is Born</h4>
+                                <div class="modal-footer">
+                                    <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
+                                    <button class="btn btn-warning" ng-click="cm.cancel()">Cancel</button>
                                 </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="img/about/3.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>December 2012</h4>
-                                    <h4 class="subheading">Transition to Full Service</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <img class="img-circle img-responsive" src="img/about/4.jpg" alt="">
-                            </div>
-                            <div class="timeline-panel">
-                                <div class="timeline-heading">
-                                    <h4>July 2014</h4>
-                                    <h4 class="subheading">Phase Two Expansion</h4>
-                                </div>
-                                <div class="timeline-body">
-                                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Sunt ut voluptatum eius sapiente, totam reiciendis temporibus qui quibusdam, recusandae sit vero unde, sed, incidunt et ea quo dolore laudantium consectetur!</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li class="timeline-inverted">
-                            <div class="timeline-image">
-                                <h4>Be Part
-                                    <br>Of Our
-                                    <br>Story!</h4>
-                            </div>
-                        </li>
-                    </ul>
+                            </script>
+                            <!-- / Modal HTML -->
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
-
+        </section>
+    </main>
     <!-- Team Section -->
-    <section id="team" class="bg-light-gray">
+    <!--<section id="team" class="bg-light-gray">
         <div class="container">
             <div class="row">
                
@@ -240,10 +265,10 @@
                 </div>
             </div>
         </div>
-    </section>
+    </section>-->
 
     <!-- Clients Aside -->
-    <aside class="clients">
+    <!--<aside class="clients">
         <div class="container">
             <div class="row">
                 <div class="col-md-3 col-sm-6">
@@ -268,7 +293,7 @@
                 </div>
             </div>
         </div>
-    </aside>
+    </aside>-->
     
     <!-- Contact Section -->
     <section id="contact">
@@ -327,7 +352,7 @@
                         </li>
                         <li><a href="#"><i class="fa fa-facebook"></i></a>
                         </li>
-                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+                        <li><a href="#"><i class="fa fa-github"></i></a>
                         </li>
                     </ul>
                 </div>
@@ -360,6 +385,16 @@
 
     <!-- Custom Theme JavaScript -->
     <script src="Site Template/js/agency.js"></script>
+
+    <!-- Angular -->
+    <script src="Scripts/angular.min.js"></script>
+    <script src="App/carConfig.js"></script>
+    <script src="App/carCtrl.js"></script>
+    <script src="App/carSvc.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap.min.js"></script>
+    <script src="Scripts/angular-ui/ui-bootstrap-tpls.min.js"></script>
+
+    <script src="Scripts/trNGGrid.min.js"></script>
 
 </body>
 
