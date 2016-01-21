@@ -216,6 +216,8 @@
                                                         <dd>{{cm.car.car.seats}}</dd>
                                                         <dt>Number of Doors</dt>
                                                         <dd>{{cm.car.car.doors}}</dd>
+                                                        <dt>Recalls</dt>
+                                                        <dd>{{cm.car.recalls.Count}}</dd>
                                                     </dl>
                                                 </div>
                                                 <div class="col-sm-7">
@@ -226,18 +228,21 @@
                                             </div>
                                         </uib-tab>
                                         <uib-tab heading="Recalls">
-                                            <div class="recall" ng-repeat="recall in recalls">
-                                                <div class="recallReturn">
+                                            <div class="recall" ng-repeat="recall in cm.car.recalls.Results">
+                                                Remedy :  {{recall.Remedy}}
+                                                <br />
+                                                Consequence:  {{recall.Conequence}}
+                                                <!--<div class="recallReturn">
                                                     <h2>Recall Number: {{cm.car.car.recalls.results.each.actionNumber}}</h2>
                                                     <dl>
                                                         <dt>Summary</dt>
-                                                        <dd>{{cm.car.car.recalls.results.each.summary}}</dd>
+                                                        <dd>{{cm.car.car.recalls.results.results.summary}}</dd>
                                                         <dt>Consequence</dt>
                                                         <dd>{{cm.car.car.recalls.results.each.conequence}}</dd>
                                                         <dt>Remedy</dt>
                                                         <dd>{{cm.car.car.recalls.results.each.remedy}}</dd>
                                                     </dl>
-                                                </div>
+                                                </div>-->
                                             </div>
                                         </uib-tab>
                                     </uib-tabset>

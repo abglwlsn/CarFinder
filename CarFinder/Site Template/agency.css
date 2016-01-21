@@ -243,7 +243,9 @@ header {
      font-weight:700;
      font-size:50px;
      line-height:50px;
-     margin-bottom:25px}
+     margin-bottom:25px;
+     text-shadow:2px 2px 1px black;
+ }
 
  @media (min-width:768px){
      header .intro-text{

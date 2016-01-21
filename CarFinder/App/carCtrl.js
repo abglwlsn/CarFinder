@@ -88,7 +88,7 @@
 
     // ---------------------------------------- CAR MODAL CONTROLLER ------------------------------------------------------------------------
 
-    app.controller('carModalCtrl', ['$uibModalInstance', function ($uibModalInstance, cc) {
+    app.controller('carModalCtrl', ['$uibModalInstance', 'cc', function ($uibModalInstance, cc) {
 
         var ref = this;
         ref.n = 0;

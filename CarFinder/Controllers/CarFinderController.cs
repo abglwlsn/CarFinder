@@ -162,29 +162,29 @@ namespace CarFinder.Controllers
 
 
             // ---------  Get Image --------
-           
-            //    var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
 
-            //    image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
-            //var marketData = image.Composite(
-            //     "image",
-            //     Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null,
-            //     null
-            //     ).Execute();
+            var image = new BingSearchContainer(new Uri("https://api.datamarket.azure.com/Bing/search/"));
 
-           // Image = marketData?.First()?.Image?.First()?.MediaUrl;
+            image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
+            var marketData = image.Composite(
+                 "image",
+                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null,
+                 null
+                 ).Execute();
+
+            Image = marketData?.First()?.Image?.First()?.MediaUrl;
 
             return Ok(new { car = Car, recalls = Recalls });
         }
