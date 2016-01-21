@@ -312,6 +312,7 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="index.html" />
+    <Content Include="indexPractice.html" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
     <Content Include="Scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Areas\HelpPage\Views\Web.config" />
@@ -369,6 +370,8 @@
     <Content Include="Scripts\angular-touch.min.js" />
     <Content Include="Scripts\angular.js" />
     <Content Include="Scripts\angular.min.js" />
+    <Content Include="Scripts\bootstrap.css" />
+    <Content Include="Scripts\bootstrap.min.css" />
     <Content Include="Scripts\errors.json" />
     <Content Include="Scripts\angular.min.js.map" />
     <Content Include="Scripts\angular-touch.min.js.map" />
@@ -1140,6 +1143,21 @@
     <Content Include="Scripts\respond.matchmedia.addListener.js" />
     <Content Include="Scripts\respond.matchmedia.addListener.min.js" />
     <Content Include="Scripts\respond.min.js" />
+    <Content Include="Site Template\agency.css" />
+    <Content Include="Site Template\font-awesome\font-awesome.css" />
+    <Content Include="Site Template\font-awesome\font-awesome.min.css" />
+    <Content Include="Site Template\font-awesome\fontawesome-webfont.svg" />
+    <Content Include="Site Template\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="Site Template\js\agency.js" />
+    <Content Include="Site Template\js\bootstrap.js" />
+    <Content Include="Site Template\js\bootstrap.min.js" />
+    <Content Include="Site Template\js\cbpAnimatedHeader.js" />
+    <Content Include="Site Template\js\cbpAnimatedHeader.min.js" />
+    <Content Include="Site Template\js\classie.js" />
+    <Content Include="Site Template\js\contact_me.js" />
+    <Content Include="Site Template\js\jqBootstrapValidation.js" />
+    <Content Include="Site Template\js\jquery.js" />
+    <Content Include="Site Template\my.css" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -1158,6 +1176,14 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Scripts\version.json" />
+    <Content Include="Site Template\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Site Template\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="Site Template\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="Site Template\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="Site Template\font-awesome\fontawesome-webfont.eot" />
+    <Content Include="Site Template\font-awesome\fontawesome-webfont.ttf" />
+    <Content Include="Site Template\font-awesome\fontawesome-webfont.woff" />
+    <Content Include="Site Template\font-awesome\FontAwesome.otf" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

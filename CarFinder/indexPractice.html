@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+	<meta charset="utf-8" />
+</head>
+<body ng-app="carDetails">
+    <div class="container" ng-controller="carCtrl as car">
+        <div class="dropdowns">
+            <select ng-options="y for y in car.years" ng-model="car.selected.year" ng-change="car.getMakes()">{{y}}</select>
+            <!-- the ng-change="function" in this case will populate the Makes dropdown ONLY when the year is chosen -->
+            <select ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">{{mak}}</select>
+            <select ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getTrims()">{{mod}}</select>
+            <select ng-options="t for t in car.trims" ng-model="car.selected.trim">{{t}}</select>
+            <select ng-options="tran for tran in car.transmission" ng-model="car.selected.transmission">{{tran}}</select>
+            <select ng-options="d for d in car.drive" ng-model="car.selected.drive">{{d}}</select>
+        </div>
+        <div class="selections">
+            Year: {{car.selected.year}}<br />
+            Make: {{car.selected.make}}<br />
+            Model: {{car.selected.model}}<br />
+            Trim: {{car.selected.trim}}<br />
+            Transmission: {{car.selected.transmission}}<br />
+            Drive: {{car.selected.drive}}<br />
+        </div>
+        <div class="resultDisplay">
+            <table id="carDisplay">
+                <thead>
+                    <tr>
+                        <th>Year</th>
+                        <th>Make</th>
+                        <th>Model</th>
+                        <th>Trim</th>
+                        <th>Transmission Type</th>
+                        <th>Drive Type</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="c in car.cars">
+                        <td>{{c.model_year}}</td>
+                        <td>{{c.make}}</td>
+                        <td>{{c.model_name}}</td>
+                        <td>{{c.model_trim}}</td>
+                        <td>{{c.transmission_type}}</td>
+                        <td>{{c.drive_type}}</td>
+                    </tr>
+                </tbody>
+            </table>
+            Cars: {{car.cars}}
+        </div>
+    </div>
+
+    <script src="Scripts/angular.min.js"></script>
+    <script src="App/carConfig.js"></script>
+    <script src="App/carCtrl.js"></script>
+    <script src="App/carSvc.js"></script>
+</body>
+</html>
