@@ -65,14 +65,11 @@
                         <a class="page-scroll" href="#testDrive">Take a Test Drive</a>
                     </li>
                     <li>
+                        <a href="http://www.github.com/abigailwest/CarFinder" target="_blank">View on Github</a>
+                    </li>
+                    <li>
                         <a class="page-scroll" href="#contact">Contact</a>
                     </li>
-                    <li class="social-buttons">
-                        <a href="http://www.github.com/abigailwest"><i class="fa fa-github"></i></a>
-                    </li>
-                    <!--<li>
-                        <a class="page-scroll" href="#contact">Contact</a>
-                    </li>-->
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -91,8 +88,9 @@
         </div>
     </header>
 
-    <!--About Section -->
+
     <main>
+        <!--About Section -->
         <section id="About">
             <div class="container">
                 <div class="row">
@@ -113,28 +111,22 @@
                         <h3 class="section-subheading text-muted">This web page was built using <span>HTML</span>, <span>CSS</span>, <span>Bootstrap</span>, and <span>Javascript</span>.<br /><br />In addition, the following technologies were used to create this API:</h3>
                     </div>
                 </div>
-                <div class="row">
-                    <div class="col-sm-3">
+                <div class="row m-t-25">
+                    <div class="col-sm-4">
                         <div class="technologies">
-                            <img src="img/team/1.jpg" class="img-responsive img-circle" alt="">
+                            <img src="Images/icon-angular.png" class="img-responsive img-circle" alt="AngularJS">
                             <h4>AngularJS</h4>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="technologies">
-                            <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
-                            <h4>ASP.NET MVC</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-3">
-                        <div class="technologies">
-                            <img src="img/team/3.jpg" class="img-responsive img-circle" alt="">
+                            <img src="Images/icon-c.png" class="img-responsive img-circle" alt="C#"/>
                             <h4>C#</h4>
                         </div>
                     </div>
-                    <div class="col-sm-3">
+                    <div class="col-sm-4">
                         <div class="technologies">
-                            <img src="img/team/2.jpg" class="img-responsive img-circle" alt="">
+                            <img src="Images/icon-sql.png" class="img-responsive img-circle" alt="SQL Server">
                             <h4>SQL Server</h4>
                         </div>
                     </div>
@@ -177,7 +169,7 @@
                             <!-- Modal HTML -->
                             <script type="text/ng-template" id="carModal.html">
                                 <div class="modal-header">
-                                    <h3 class="modal-title">
+                                    <h3 class="modal-title">Car Details
                                         <button class="pull-right btn btn-default" ng-click="cm.cancel()">X</button>
                                     </h3>
                                 </div>
@@ -198,37 +190,39 @@
                                     <h2> {{cm.car.car.model_year}} {{cm.car.car.make}} {{cm.car.car.model_name}}</h2>
                                     <uib-tabset>
                                         <uib-tab heading="Car Details">
-                                            <div class="row">
-                                                <div class="col-sm-5">
+                                            <div class="row tabs">
+                                                <div class="col-sm-3">
                                                     <h4>Car Details</h4>
                                                     <dl>
-                                                        <dt>Transmission Type</dt>
+                                                        <!--<div ng-repeat="data in myData " ng-if="data.Message">
+                                                            {{ data.ID }}
+                                                            {{ data.Message }}
+                                                        </div>-->
+                                                        <dt ng-if="cm.car.car.transmission_type">Transmission Type</dt>
                                                         <dd>{{cm.car.car.transmission_type}}</dd>
-                                                        <dt>Drive Type</dt>
+                                                        <dt ng-if="cm.car.car.drive_type">Drive Type</dt>
                                                         <dd>{{cm.car.car.drive_type}}</dd>
-                                                        <dt>Engine Type</dt>
+                                                        <dt ng-if="cm.car.car.engine_type">Engine Type</dt>
                                                         <dd>{{cm.car.car.engine_type}}</dd>
-                                                        <dt>Cylinders</dt>
+                                                        <dt ng-if="cm.car.car.engine_num_cyl">Cylinders</dt>
                                                         <dd>{{cm.car.car.engine_num_cyl}}</dd>
-                                                        <dt>Horsepower</dt>
+                                                        <dt ng-if="cm.car.car.engine_power_ps">Horsepower</dt>
                                                         <dd>{{cm.car.car.engine_power_ps}}</dd>
-                                                        <dt>Number of Seats</dt>
+                                                        <dt ng-if="cm.car.car.seats">Number of Seats</dt>
                                                         <dd>{{cm.car.car.seats}}</dd>
-                                                        <dt>Number of Doors</dt>
+                                                        <dt ng-if="cm.car.car.doors">Number of Doors</dt>
                                                         <dd>{{cm.car.car.doors}}</dd>
                                                         <dt>Recalls</dt>
                                                         <dd>{{cm.car.recalls.Count}}</dd>
                                                     </dl>
                                                 </div>
-                                                <div class="col-sm-7">
-                                                    <div class="image-result">
-                                                        {{cm.car.car.image}}
-                                                    </div>
+                                                <div class="col-sm-9 image-contain">
+                                                    <img class="image-result" ng-src={{cm.car.image}}>
                                                 </div>
                                             </div>
                                         </uib-tab>
                                         <uib-tab heading="Recalls">
-                                            <div class="recall" ng-repeat="recall in cm.car.recalls.Results">
+                                            <div class="tabs" ng-repeat="recall in cm.car.recalls.Results">
                                                 Remedy :  {{recall.Remedy}}
                                                 <br />
                                                 Consequence:  {{recall.Conequence}}
@@ -315,6 +309,9 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="form-group">
+                                    <a href="https://github.com/abigailwest" target="_blank">
+                                        <img src="Images/icon-github.png" />
+                                    </a>
                                     <input type="text" class="form-control" placeholder="Your Name *" id="name" required data-validation-required-message="Please enter your name.">
                                     <p class="help-block text-danger"></p>
                                 </div>

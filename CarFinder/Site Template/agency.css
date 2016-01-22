@@ -244,7 +244,7 @@ header {
      font-size:50px;
      line-height:50px;
      margin-bottom:25px;
-     text-shadow:2px 2px 1px black;
+     text-shadow:-3px 3px 5px black;
  }
 
  @media (min-width:768px){
@@ -266,7 +266,7 @@ header {
          ;margin-bottom:50px}}
 
  section{
-     padding:25px 0}
+     padding:70px 0!important}
 
  section h2.section-heading{
      font-size:40px;
@@ -339,7 +339,7 @@ header {
 
 .technologies img{
     margin:0 auto;
-    border:7px solid #fff}
+    border:5px solid #fed136}
 
 .technologies h4{
     margin-top:25px;

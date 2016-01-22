@@ -186,7 +186,7 @@ namespace CarFinder.Controllers
 
             Image = marketData?.First()?.Image?.First()?.MediaUrl;
 
-            return Ok(new { car = Car, recalls = Recalls });
+            return Ok(new { car = Car, recalls = Recalls, image=Image });
         }
     }
 }
