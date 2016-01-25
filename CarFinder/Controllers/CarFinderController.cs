@@ -94,9 +94,10 @@ namespace CarFinder.Controllers
         [HttpPost]
         public IHttpActionResult GetUniqueTrimsByMakeModelYear(Selected selected)
         {
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
             var _model_name = new SqlParameter("@model_name", selected.model ?? "");
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+
 
             var returnValue = db.Database.SqlQuery<string>(
                 "EXEC GetUniqueTrimsByMakeModelYear @make, @model_name,  @model_year", _make, _model_name, _model_year).ToList();
@@ -168,7 +169,7 @@ namespace CarFinder.Controllers
             image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
             var marketData = image.Composite(
                  "image",
-                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim,
+                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + "not ebay",
                  null,
                  null,
                  null,
