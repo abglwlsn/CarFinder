@@ -25,7 +25,7 @@
     <link href='https://fonts.googleapis.com/css?family=Kaushan+Script' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Droid+Serif:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
     <link href='https://fonts.googleapis.com/css?family=Roboto+Slab:400,100,300,700' rel='stylesheet' type='text/css'>
-    <link href="Site Template/font-awesome/font-awesome.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css">
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -94,48 +94,21 @@
         <section id="About">
             <div class="container">
                 <div class="row">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="section-heading">About this App</h2>
-                        <h3 class="section-subheading text-muted">With just a few simple clicks, access an extensive database of vehicles through a custom-built API to find just the one you want.</h3>
-                        <h3 class="section-subheading text-muted">Recall information is provided by accessing the National Highway and Traffic Safety Administration API. Images are sourced through the Bing search API.</h3>
-                        <a href="http://awest-carfinder.azurewebsites.net/help" class="btn btn-md">View documentation</a>
+                    <div class="col-md-4 text-center technologies">
+                        <img src="Images/icon-angular.png" class="img-responsive img-circle" alt="AngularJS">
+                        <img src="Images/icon-c.png" class="img-responsive img-circle" alt="C#" />
+                        <img src="Images/icon-sql.png" class="img-responsive img-circle" alt="SQL Server">
+                    </div>
+                    <div class="col-md-8 text-center">
+                        <h2 class="section-heading">About this Web API</h2>
+                        <h4 class="text-muted section-subheading text-trans-none">With just a few simple clicks, this custom-built Web API guides users in retrieving details on more than sixty thousand cars.</h4>
+                        <p>As with most APIS, CarFinder contains much more functionality than meets the eye.</p>
+                        <p>Behind the scenes, SQL Server constructs the skeleton functionality through stored procedures. These queries dictate the information received from the relational database, and prepare it for use by C#. C# then translates the query results into a form available to the front-end languages, and also links to the Bing Image Search and NHTSA Recall APIs.</p>
+                        <p>AngularJS provides a robust framework for the smooth user experience, snappy visual effects, and - most importantly - acccurate front-end implementation of data within this API. HTML, CSS, Bootstrap, and Javascript were of course instrumental in the structure and styling of this page.</p><a href="http://awwest-carfinder.azurewebsites.net/help" target="_blank" class="btn btn-md">View documentation</a>
                     </div>
                 </div>
             </div>
         </section>
-
-        <!-- Technologies Section -->
-        <section id="technologies">
-            <div class="container">
-                <div class="row text-center">
-                    <div class="col-lg-12 text-center">
-                        <h2 class="cursive">Brought to you by:</h2>
-                        <h3 class="section-subheading text-muted">This web page was built using <span>HTML</span>, <span>CSS</span>, <span>Bootstrap</span>, and <span>Javascript</span>.<br /><br />In addition, the following technologies were used to create this API:</h3>
-                    </div>
-                </div>
-                <div class="row m-t-25">
-                    <div class="col-sm-4">
-                        <div class="technologies">
-                            <img src="Images/icon-angular.png" class="img-responsive img-circle" alt="AngularJS">
-                            <h4>AngularJS</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="technologies">
-                            <img src="Images/icon-c.png" class="img-responsive img-circle" alt="C#"/>
-                            <h4>C#</h4>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="technologies">
-                            <img src="Images/icon-sql.png" class="img-responsive img-circle" alt="SQL Server">
-                            <h4>SQL Server</h4>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
 
         <!-- CarFinder Section -->
         <section id="testDrive">
@@ -147,9 +120,9 @@
                             <!-- the ng-change="function" in this case will populate the Models dropdown ONLY when the Make is chosen -->
                             <select class="select-dropdown" ng-options="mak for mak in car.makes" ng-model="car.selected.make" ng-change="car.getModels()">
                             <option value="" selected>First, Select Make</option>{{mak}}</select>
-                            <select class="select-dropdown" ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getYears()"><option value="" selected>Then Select Model</option>{{mod}}</select>
-                            <select class="select-dropdown" ng-options="y for y in car.years" ng-model="car.selected.year" ng-change="car.getTrims()"><option value="" selected>Then Select Year</option>{{y}}</select>
-                            <select class="select-dropdown" ng-options="t for t in car.trims" ng-model="car.selected.trim"><option value="" selected>Finally, the Trim</option>{{t}}</select>
+                            <select class="select-dropdown" ng-options="mod for mod in car.models" ng-model="car.selected.model" ng-change="car.getYears()"><option value="" selected>Then Model</option>{{mod}}</select>
+                            <select class="select-dropdown" ng-options="y for y in car.years" ng-model="car.selected.year" ng-change="car.getTrims()"><option value="" selected>Then Year</option>{{y}}</select>
+                            <select class="select-dropdown" ng-options="t for t in car.trims" ng-model="car.selected.trim"><option value="" selected>Finally, Trim</option>{{t}}</select>
                         </div>
                         <div class="table">
                             <table id="carDisplay" tr-ng-grid="" items="car.cars" page-items="25">
@@ -203,14 +176,12 @@
                                                     </dl>
                                                 </div>
                                                 <div class="col-sm-9 image-contain">
-                                                    <img class="image-result" ng-src={{cm.car.image}}>
-                                                </div>
-                                                <div ng-show="cm.imagePlacehold">
-                                                    <h3>Sorry, no image is available.</h3>
+                                                    <img class="image-result" ng-src={{cm.car.image}} ng-if="cm.car.image!=''">
+                                                    <img class="image-result" ng-src="Images/image-notavail.png" ng-if="cm.car.image==''" />
                                                 </div>
                                             </div>
                                         </uib-tab>
-                                        <uib-tab heading="Recalls">
+                                        <uib-tab heading="Recalls" ng-if="cm.car.recalls.Message!='No results found for this request'">
                                             <div class="tabs">
                                                 <uib-accordion class="accord">
                                                     <uib-accordion-group  class="accord-group" ng-repeat="recall in cm.car.recalls.Results">
@@ -245,8 +216,7 @@
                                     </uib-tabset>
                                 </div>
                                 <div class="modal-footer">
-                                    <button class="btn btn-primary" ng-click="cm.ok()">OK</button>
-                                    <button class="btn btn-warning" ng-click="cm.cancel()">Cancel</button>
+                                    <button class="btn btn-primary" ng-click="cm.ok()">Close</button>
                                 </div>
                             </script>
                             <!-- / Modal HTML -->

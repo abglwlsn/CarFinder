@@ -44,9 +44,13 @@ header {
     color:#fff;
 }
 
+.text-trans-none {
+    text-transform:none;
+}
+
 .gold {
     color:#fed136;
-    text-transform: capitalize;
+    text-transform:capitalize;
 }
 
 .cursive {
@@ -55,8 +59,7 @@ header {
 }
 
 #technologies span {
-     color:#fed136;
-     text-shadow:1px 1px #222 ;
+     color:#222;
 }
 
 /* ------- TECHNOLOGIES ------- */
@@ -94,6 +97,7 @@ header {
     margin:15px;
     background-color:#222;
     width:130%;
+    min-width:100%;
     margin:auto;
     border-radius:10px;
     position:absolute;
@@ -202,6 +206,8 @@ dt {
     width:100%;
     height:auto;
     min-height:300px;
+    display:block;
+    margin:auto;
     border-radius:5px;
 }
 

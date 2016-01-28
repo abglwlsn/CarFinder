@@ -34,7 +34,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <DocumentationFile>App_Data/XmlDocument.xml</DocumentationFile>
+    <DocumentationFile>App_Data\XmlDocument.xml</DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -303,6 +303,7 @@
     <Content Include="App\carCtrl.js" />
     <Content Include="App\carConfig.js" />
     <Content Include="App\carSvc.js" />
+    <Content Include="App_Data\XmlDocument.xml" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap-theme.css" />
     <Content Include="Content\bootstrap-theme.min.css" />
@@ -318,6 +319,7 @@
     <Content Include="Images\icon-c.png" />
     <Content Include="Images\icon-github.png" />
     <Content Include="Images\icon-sql.png" />
+    <Content Include="Images\image-notavail.png" />
     <Content Include="index.html" />
     <Content Include="indexPractice.html" />
     <Content Include="Scripts\ai.0.15.0-build58334.js" />
@@ -395,7 +397,8 @@
     <Content Include="Scripts\angular-cookies.min.js.map" />
     <Content Include="Scripts\angular-aria.min.js.map" />
     <Content Include="Scripts\angular-animate.min.js.map" />
-    <None Include="Properties\PublishProfiles\awest-carfinder.pubxml" />
+    <None Include="Properties\PublishProfiles\awwest-carfinder - FTP.pubxml" />
+    <None Include="Properties\PublishProfiles\awwest-carfinder - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-2.2.0.intellisense.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
@@ -1198,9 +1201,7 @@
     <Content Include="Site Template\font-awesome\fontawesome-webfont.woff" />
     <Content Include="Site Template\font-awesome\FontAwesome.otf" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="App_Data\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="packages.config" />
     <None Include="Project_Readme.html" />

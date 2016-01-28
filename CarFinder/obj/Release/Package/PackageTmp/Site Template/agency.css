@@ -266,7 +266,7 @@ header {
          ;margin-bottom:50px}}
 
  section{
-     padding:70px 0!important}
+     padding:100px 0!important}
 
  section h2.section-heading{
      font-size:40px;
@@ -282,7 +282,7 @@ header {
      font-weight:400;
      margin-bottom:75px;
      margin:auto;
-     width:75%;
+     width:85%;
  }
 
  @media (min-width:768px){
@@ -339,7 +339,10 @@ header {
 
 .technologies img{
     margin:0 auto;
-    border:5px solid #fed136}
+    border:5px solid #f2f2f2;
+    width:60%;
+    max-width:200px;
+}
 
 .technologies h4{
     margin-top:25px;

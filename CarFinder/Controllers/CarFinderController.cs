@@ -24,9 +24,9 @@ namespace CarFinder.Controllers
         /// </summary>
         public class Selected
         {
+            public string year { get; set; }
             public string make { get; set; }
             public string model { get; set; }
-            public string year { get; set; }
             public string trim { get; set; }
         }
 
@@ -94,13 +94,14 @@ namespace CarFinder.Controllers
         [HttpPost]
         public IHttpActionResult GetUniqueTrimsByMakeModelYear(Selected selected)
         {
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
             var _model_name = new SqlParameter("@model_name", selected.model ?? "");
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
+
 
 
             var returnValue = db.Database.SqlQuery<string>(
-                "EXEC GetUniqueTrimsByMakeModelYear @make, @model_name,  @model_year", _make, _model_name, _model_year).ToList();
+                "EXEC GetUniqueTrimsByMakeModelYear @model_year, @make, @model_name", _model_year, _make, _model_name).ToList();
 
             return Ok(returnValue);
         }
@@ -116,13 +117,13 @@ namespace CarFinder.Controllers
         [HttpPost]
         public IHttpActionResult GetCars(Selected selected)
         {
+            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _make = new SqlParameter("@make", selected.make ?? "");
             var _model_name = new SqlParameter("@model_name", selected.model ?? "");
-            var _model_year = new SqlParameter("@model_year", selected.year ?? "");
             var _model_trim = new SqlParameter("@model_trim", selected.trim ?? "");
 
             var returnValue = db.Database.SqlQuery<Car>(
-                "EXEC GetCars @make, @model_name, @model_year, @model_trim", _make, _model_name, _model_year, _model_trim).ToList();
+                "EXEC GetCars @model_year, @make, @model_name, @model_trim", _model_year, _make, _model_name, _model_trim).ToList();
 
             return Ok(returnValue);
         }
@@ -169,7 +170,7 @@ namespace CarFinder.Controllers
             image.Credentials = new NetworkCredential("accountKey", "ih3uuQpD5VI9IrIcovu/1dEIjaJXkB6eFMgSg9CCxGY");
             var marketData = image.Composite(
                  "image",
-                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim + "not ebay",
+                 Car.model_year + " " + Car.make + " " + Car.model_name + " " + Car.model_trim ,
                  null,
                  null,
                  null,
@@ -185,9 +186,56 @@ namespace CarFinder.Controllers
                  null
                  ).Execute();
 
-            Image = marketData?.First()?.Image?.First()?.MediaUrl;
+            var Images = marketData?.FirstOrDefault()?.Image;
+
+            foreach (var Img in Images)
+            {
+                if (UrlCtrl.IsUrl(Img.MediaUrl))
+                {
+                    Image = Img.MediaUrl;
+                    break;
+                }
+                else
+                {
+                    continue;
+                }
+            }
 
             return Ok(new { car = Car, recalls = Recalls, image=Image });
+        }
+    }
+
+    /// <summary>
+    /// The URL Controller verifies the validity of a URL by iterating through the image array provided by the Bing Search API.
+    /// </summary>
+    public static class UrlCtrl
+    {
+        public static bool IsUrl(string path)
+        {
+            HttpWebResponse response = null;
+            var request = (HttpWebRequest)WebRequest.Create(path);
+            request.Method = "HEAD";
+            bool result = true;
+
+            try
+            {
+                response = (HttpWebResponse)request.GetResponse();
+            }
+            catch (WebException ex)
+            {
+                /* A WebException will be thrown if the status of the response is not `200 OK` */
+                result = false;
+            }
+            finally
+            {
+                if (response != null)
+                {
+                    response.Close();
+                }
+
+            }
+
+            return result;
         }
     }
 }

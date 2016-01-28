@@ -10,9 +10,9 @@
         ref.models = [];
         ref.trims = [];
         ref.selected = {
+            year: '',
             make: '',
             model: '',
-            year: '',
             trim: '',
           
         }

@@ -543,6 +543,11 @@
             <param name="Id"></param>
             <returns></returns>
         </member>
+        <member name="T:CarFinder.Controllers.UrlCtrl">
+            <summary>
+            The URL Controller verifies the validity of a URL by iterating through the image array provided by the Bing Search API.
+            </summary>
+        </member>
         <member name="M:Bing.BingSearchContainer.Composite(System.String,System.String,System.String,System.String,System.String,System.String,System.Nullable{System.Double},System.Nullable{System.Double},System.String,System.String,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             </summary>
